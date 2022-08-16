@@ -4,6 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "migrate:create": "sh -c 'ts-node node_modules/.bin/migrate-mongo create $0 -f migrate-mongo-config.js' ",
+    "migrate:status": "ts-node node_modules/.bin/migrate-mongo status -f migrate-mongo-config.js",
+    "migrate:undo-last": "ts-node node_modules/.bin/migrate-mongo down -f migrate-mongo-config.js && yarn migrate:status",
+    "migrate": "ts-node node_modules/.bin/migrate-mongo up -f migrate-mongo-config.js",
     "build": "tsc",
     "dev": "ts-node-dev src/index.ts",
     "lint": "eslint src/**/*.ts",
@@ -13,6 +17,7 @@
   },
   "devDependencies": {
     "@types/jest": "^27.4.0",
+    "@types/migrate-mongo": "^8.2.0",
     "@types/node": "^16.9.1",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
@@ -32,5 +37,10 @@
       "eslint --cache --fix"
     ],
     "*.{ts,md}": "prettier --write"
+  },
+  "dependencies": {
+    "migrate-mongo": "^9.0.0",
+    "mongo-migrate-ts": "^1.1.1",
+    "mongodb": "^4.8.1"
   }
 }
